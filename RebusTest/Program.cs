@@ -30,17 +30,23 @@ namespace RebusTest
         private static async Task RunApp()
         {
             string cmd;
-            while ((cmd = Console.ReadLine()) != "exit")
+            while ((cmd = ReadCommand()) != "exit")
             {
                 if (string.IsNullOrEmpty(cmd))
                 {
-                    Log.Logger.Information("Nothing to send");
+                    Console.WriteLine("Nothing to send");
                     continue;
                 }
 
-                Log.Logger.Information($"Sending: {cmd}");
+                Console.WriteLine($"Sending '{cmd}' to bus");
                 await Bus.Current.Send(new DeliverMessage {MessageBody = cmd, MessageId = Guid.NewGuid()});
             }
+        }
+
+        private static string ReadCommand()
+        {
+            Console.Write("Type message to send: ");
+            return Console.ReadLine();
         }
     }
 }
