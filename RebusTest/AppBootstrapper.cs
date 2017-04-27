@@ -31,7 +31,7 @@ namespace RebusTest
                 .Transport(t => t.UseSqlServer(connectionString, "RebusQueue", endpointQueueName))
                 .Routing(r => r.TypeBased().MapAssemblyOf<DeliverMessage>(endpointQueueName))
                 .Logging(l => l.Serilog(Log.Logger))
-                .Sagas(s => s.StoreInSqlServer(connectionString, "RebusSaga", "ix_RebusSga"))
+                .Sagas(s => s.StoreInSqlServer(connectionString, "RebusSaga", "RebusSagaIndex"))
                 .Start();
 
             bus.Subscribe<MessageDelivered>();
