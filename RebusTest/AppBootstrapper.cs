@@ -55,7 +55,8 @@ namespace RebusTest
         private static void ConfigureLogger()
         {
             Log.Logger = new Serilog.LoggerConfiguration()
-                .WriteTo.ColoredConsole(outputTemplate: "[{Level}] {SourceContext} {Message}{NewLine}")
+                .WriteTo.ColoredConsole(outputTemplate: "[{Level}] {SourceContext} {Message}{NewLine}CorrelationId={CorrelationId}{NewLine}{NewLine}")
+                .Enrich.WithRebusCorrelationId("CorrelationId")
                 .CreateLogger()
                 .ForContext("{Source}", "App");
         }
